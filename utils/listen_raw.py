@@ -10,19 +10,14 @@ import os
 import sys
 import time
 
-sys.path=\
-	[os.path.dirname(os.path.realpath(__file__))+'/../']+sys.path
+sys.path=[os.path.dirname(os.path.realpath(__file__))+'/../']+sys.path
 
 from lib.cdc import CDC_nRF
 
 
-myDev=CDC_nRF(sys.argv[1])
-#myDev.setPower(1)
+dev = CDC_nRF(sys.argv[1])
 
-#myDev.setRX_Address(0,[0xc0,0x1d,0xbe,0xef,0x00])
-myDev._bus.setDTR(True)
-myDev._bus.timeout=None;
+dev._bus.setDTR(True)
+dev._bus.timeout = None
 while True:
-	sys.stdout.write(myDev._bus.read())
-	sys.stdout.flush()
-	#print myDev._rx(1024)
+   print dev._bus.read()

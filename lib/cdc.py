@@ -134,18 +134,16 @@ class CDC_nRF:
 		#if len(ret)!=3:
 		#	return False
 		return ret[1] if (ret[0]==0x80) else False
-	
-  def getVersions(self):
+
+	def getVersions(self):
 		ret=self._tx_frame([self.DEV_GET_VERSION],5)
-		#if len(ret)!=3:
-		#	return False
 		if (ret[0]==0x80):
-        return {
-            'FV':       ((ret[1]<<8)|ret[2])
-            'NRF-lib':  ((ret[3]<<8)|ret[4])
-        }
-    else:
-        return False
+				return {
+						'FV':       ((ret[1]<<8)|ret[2]),
+						'NRF-lib':  ((ret[3]<<8)|ret[4])
+				}
+		else:
+				return False
 
 	def readEEPROM(self,addr_start=0,length=64):
 		ret=self._tx_frame([self.NRF_FNC_READ_EEPROM,addr_start,length],1+length)
